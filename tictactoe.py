@@ -13,7 +13,7 @@ class tictactoe:
     def create_b(self):
         for i in range(3):
             for j in range(3):
-                button = Button(self.root,text = '',font = ('bold',40),width = 5,height = 3)
+                button = Button(self.root,text = '',font = ('bold',40),width = 5,height = 3, command = lambda r = i,c = j:self.pl_click(r,c))
                 button.grid(row = i,column = j)
                 self.buttons[i][j] = button
     def check_win(self):
@@ -31,18 +31,24 @@ class tictactoe:
             return True
         return False
 
+    def reset(self):
+        for i in range(3):
+            for j in range(3):
+                self.buttons[i][j]['text'] = '  '
     def pl_click(self,r,c):
         if self.buttons[r][c]['text'] == '' and not self.check_win():
-            self.buttons[r][c]['text'] == self.cur_p
-            if check_win():
+            self.buttons[r][c]['text'] = self.cur_p
+            if self.check_win():
                 messagebox.showinfo(message = f'The Game is over, player {self.cur_p} won!!!')
+                self.reset()
             elif self.board_full():
                 messagebox.showinfo(message = f'The Game is a Tie!!!')
+                self.reset()
             else:
-                if cur_p == 'x':
-                    cur_p = 'o'
+                if self.cur_p == 'x':
+                    self.cur_p = 'o'
                 else:
-                    cur_p = 'x'
+                    self.cur_p = 'x'
                     
 
 
